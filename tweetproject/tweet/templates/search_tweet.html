@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}
+TwitHub
+{% endblock title %}
+
+{% block content %}
+<h2 class='text-center  mt-4'>Welcome to TwitHub</h2>
+<div class="container">
+    <div style='margin:auto'>
+
+{% if tweets %}  <!--ye tweets check krega agar search hoke tweet me koi object aaya vo check kar rha h ye-->
+{% for tweet in tweets  %}  <!--Jab tak tweets hai tab tak print kra dega-->
+<div class="card" style="width: 18rem ;">
+    {% if tweet.photo %}
+    <img src="{{tweet.photo.url}}" class="card-img-top" alt="...">
+    {% endif %}
+    <div class="card-body ">
+      <h5 class="card-title">{{tweet.user.username}}</h5>
+      <p class="card-text">{{tweet.text}}</p>
+      <p class="card-text">{{tweet.created_at}}</p>
+
+      {% if tweet.user == user %}
+      <a href="{% url 'tweet_edit' tweet.id%}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'tweet_delete' tweet.id%}" class="btn btn-danger">Delete</a>
+      {% endif %} <!--user check vala end if-->
+
+{% endfor %} <!--for loop end kardia agar tweets hai tab tak print karo uske baad band-->
+
+{% else %} <!--tweet me koi object nhi aaya tab ye print krega-->
+<p>No tweets found matching your search criteria</p>
+
+{% endif %} <!--tweets check karne vala if end kardia-->
+    </div>
+  </div>
+{% endblock content %}

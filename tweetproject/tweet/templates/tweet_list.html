@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}
+TwitHub
+{% endblock title %}
+
+{% block content %}
+<h2 class='text-center  mt-4'>Welcome to TwitHub</h2>
+<!--<a class="btn btn-primary " style='margin-left20:20px' href="{% url 'tweet_create' %}">Create a tweet</a> -->
+<div class="container row gap-3 " style="margin:auto">
+  <span><a class="btn btn-primary " style='margin-left20:20px' href="{% url 'tweet_create' %}">Create a tweet</a></span>
+    {% for tweet in tweets  %}
+    <div class="card" style="width: 18rem ;">
+      {% if tweet.photo %}
+        <img src="{{tweet.photo.url}}" class="card-img-top" alt="...">
+        {% endif %}
+        <div class="card-body ">
+          <h5 class="card-title">{{tweet.user.username}}</h5>
+          <p class="card-text">{{tweet.text}}</p>
+          <p class="card-text">{{tweet.created_at}}</p>
+          {% if tweet.user == user %}  <!--twwet.user means who created that specific tweet and user is currently logged in user-->
+          <a href="{% url 'tweet_edit' tweet.id%}" class="btn btn-primary">Edit</a>
+          <a href="{% url 'tweet_delete' tweet.id%}" class="btn btn-danger">Delete</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}  
+ </div>
+{% endblock content %}

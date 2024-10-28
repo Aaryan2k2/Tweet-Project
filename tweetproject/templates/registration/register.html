@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2 style="margin-left:45%">Register Page</h2>
+<form method="post" >
+    {% csrf_token %}
+{{form.as_p}}
+<button class='btn btn-primary' style='margin-left:80px' type='submit'>Register</button>
+</form>
+{% endblock content %}
